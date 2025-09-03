@@ -1,19 +1,14 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbx9y5BCGVaUeEDWTgKJiKBzJKayLxVrksVdO4MY2IgfZSlcrV9mLlBc9JHn-LYLj7BN/exec"; // Thay bằng URL của bạn
 
+
 async function callApi(params) {
   try {
-    // Sử dụng POST thay vì GET để tránh chuyển hướng
-    const formData = new FormData();
+    const url = new URL(API_URL);
     Object.keys(params).forEach(key => {
-      formData.append(key, params[key]);
+      url.searchParams.append(key, params[key]);
     });
     
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      body: formData,
-      mode: 'cors' // Thêm chế độ CORS
-    });
-    
+    const response = await fetch(url);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     
     return await response.json();
@@ -200,9 +195,7 @@ function showNotification(message, type) {
       messageElement.style.display = "none";
     }, 5000);
   }
-
 }
-
 // Định nghĩa hàm toàn cục
 window.login = login;
 window.getSchedule = getSchedule;
@@ -215,6 +208,7 @@ window.updateWorkingHours = updateWorkingHours;
 window.publishSchedule = publishSchedule;
 window.getEmployees = getEmployees;
 window.showNotification = showNotification;
+
 
 
 
