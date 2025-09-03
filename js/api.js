@@ -196,18 +196,19 @@ function showNotification(message, type) {
     }, 5000);
   }
 }
-// Định nghĩa hàm toàn cục
-window.login = login;
-window.getSchedule = getSchedule;
-window.registerSchedule = registerSchedule;
-window.submitComplaint = submitComplaint;
-window.getComplaints = getComplaints;
-window.updateComplaint = updateComplaint;
-window.getWorkingHours = getWorkingHours;
-window.updateWorkingHours = updateWorkingHours;
-window.publishSchedule = publishSchedule;
-window.getEmployees = getEmployees;
-window.showNotification = showNotification;
+// // Định nghĩa hàm toàn cục
+// window.login = login;
+// window.getSchedule = getSchedule;
+// window.registerSchedule = registerSchedule;
+// window.submitComplaint = submitComplaint;
+// window.getComplaints = getComplaints;
+// window.updateComplaint = updateComplaint;
+// window.getWorkingHours = getWorkingHours;
+// window.updateWorkingHours = updateWorkingHours;
+// window.publishSchedule = publishSchedule;
+// window.getEmployees = getEmployees;
+// window.showNotification = showNotification;
+
 
 
 
