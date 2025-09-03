@@ -43,9 +43,9 @@ document.addEventListener('DOMContentLoaded', function() {
           
           if (result && result.status === "success") {
             localStorage.setItem("user", JSON.stringify(result.user));
-            window.location.href = result.user.role === "Admin" ? "admin.html" : "nhan-vien.html';
+            window.location.href = result.user.role === 'Admin' ? 'admin.html' : 'nhan-vien.html';
           } else {
-            showNotification(result?.message || "Đăng nhập thất bại", "error");
+            showNotification(result?.message || "Đăng nhập thất bại", 'error');
           }
         } catch (error) {
           console.error('Lỗi đăng nhập:', error);
@@ -84,22 +84,27 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Xử lý chuyển tab
     const tabBtns = document.querySelectorAll('.tab-btn');
-    tabBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        const tabId = this.getAttribute('data-tab');
-        
-        // Ẩn tất cả tab
-        document.querySelectorAll('.tab-pane').forEach(pane => {
-          pane.classList.remove('active');
+    if (tabBtns) {
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const tabId = this.getAttribute('data-tab');
+          
+          // Ẩn tất cả tab
+          document.querySelectorAll('.tab-pane').forEach(pane => {
+            pane.classList.remove('active');
+          });
+          
+          // Hiển thị tab được chọn
+          const selectedTab = document.getElementById(tabId);
+          if (selectedTab) {
+            selectedTab.classList.add('active');
+          }
+          
+          // Cập nhật trạng thái active của nút
+          tabBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
         });
-        
-        // Hiển thị tab được chọn
-        document.getElementById(tabId).classList.add('active');
-        
-        // Cập nhật trạng thái active của nút
-        tabBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
       });
-    });
+    }
   }
 });
