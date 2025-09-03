@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Hệ thống quản lý lịch</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hệ thống quản lý lịch làm việc</h1>
+            <div class="user-info">
+                Xin chào, <span id="user-name"></span> | 
+                <a href="#" id="logout-btn">Đăng xuất</a>
+            </div>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="dashboard">Lịch đăng ký</button>
+            <button class="tab-btn" data-tab="publish">Công bố lịch</button>
+            <button class="tab-btn" data-tab="complaints">Khiếu nại</button>
+            <button class="tab-btn" data-tab="working-hours">Giờ công</button>
+            <button class="tab-btn" data-tab="employees">Quản lý nhân viên</button>
+        </div>
+        
+        <!-- Tab Lịch đăng ký -->
+        <div id="dashboard" class="tab-pane active">
+            <h2>Lịch đăng ký của nhân viên</h2>
+            <div class="schedule-nav">
+                <button id="prev-week-admin">Tuần trước</button>
+                <span id="current-week-admin"></span>
+                <button id="next-week-admin">Tuần sau</button>
+            </div>
+            <div class="admin-schedule-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Họ và tên</th>
+                            <th>Thứ 2</th>
+                            <th>Thứ 3</th>
+                            <th>Thứ 4</th>
+                            <th>Thứ 5</th>
+                            <th>Thứ 6</th>
+                            <th>Thứ 7</th>
+                            <th>Chủ nhật</th>
+                        </tr>
+                        <tr id="week-dates-admin">
+                            <!-- Ngày sẽ được điền bằng JS -->
+                        </tr>
+                    </thead>
+                    <tbody id="admin-schedule-body">
+                        <!-- Lịch sẽ được điền bằng JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Tab Công bố lịch -->
+        <div id="publish" class="tab-pane">
+            <h2>Công bố lịch</h2>
+            <div class="schedule-nav">
+                <button id="prev-week-publish">Tuần trước</button>
+                <span id="current-week-publish"></span>
+                <button id="next-week-publish">Tuần sau</button>
+            </div>
+            <div class="admin-schedule-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Họ và tên</th>
+                            <th>Thứ 2</th>
+                            <th>Thứ 3</th>
+                            <th>Thứ 4</th>
+                            <th>Thứ 5</th>
+                            <th>Thứ 6</th>
+                            <th>Thứ 7</th>
+                            <th>Chủ nhật</th>
+                            <th>Tổng ca</th>
+                        </tr>
+                        <tr id="week-dates-publish">
+                            <!-- Ngày sẽ được điền bằng JS -->
+                        </tr>
+                    </thead>
+                    <tbody id="publish-schedule-body">
+                        <!-- Lịch sẽ được điền bằng JS -->
+                    </tbody>
+                </table>
+            </div>
+            <button id="publish-schedule">Công bố lịch</button>
+            <div id="publish-message" class="message"></div>
+        </div>
+        
+        <!-- Tab Khiếu nại -->
+        <div id="complaints" class="tab-pane">
+            <h2>Khiếu nại của nhân viên</h2>
+            <div class="complaints-list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Email</th>
+                            <th>Loại</th>
+                            <th>Ngày</th>
+                            <th>Ca</th>
+                            <th>Nội dung</th>
+                            <th>Người nhận ca</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="complaints-body">
+                        <!-- Khiếu nại sẽ được điền bằng JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Tab Giờ công -->
+        <div id="working-hours" class="tab-pane">
+            <h2>Giờ công</h2>
+            <div class="schedule-nav">
+                <button id="prev-month-admin">Tháng trước</button>
+                <span id="current-month-admin"></span>
+                <button id="next-month-admin">Tháng kế tiếp</button>
+            </div>
+            <div class="working-hours-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <!-- Ngày sẽ được điền bằng JS -->
+                        </tr>
+                    </thead>
+                    <tbody id="working-hours-body">
+                        <!-- Giờ công sẽ được điền bằng JS -->
+                    </tbody>
+                </table>
+            </div>
+            <button id="save-working-hours">Lưu thay đổi</button>
+            <div id="working-hours-message" class="message"></div>
+        </div>
+        
+        <!-- Tab Quản lý nhân viên -->
+        <div id="employees" class="tab-pane">
+            <h2>Quản lý nhân viên</h2>
+            <div class="employees-list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Họ và tên</th>
+                            <th>Vai trò</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employees-body">
+                        <!-- Nhân viên sẽ được điền bằng JS -->
+                    </tbody>
+                </table>
+            </div>
+            <button id="add-employee">Thêm nhân viên</button>
+            <div id="employee-message" class="message"></div>
+        </div>
+    </div>
+    
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

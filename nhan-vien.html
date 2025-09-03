@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhân viên - Hệ thống quản lý lịch</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hệ thống quản lý lịch làm việc</h1>
+            <div class="user-info">
+                Xin chào, <span id="user-name"></span> | 
+                <a href="#" id="logout-btn">Đăng xuất</a>
+            </div>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="dashboard">Lịch công bố</button>
+            <button class="tab-btn" data-tab="register">Đăng ký lịch</button>
+            <button class="tab-btn" data-tab="complaint">Khiếu nại</button>
+            <button class="tab-btn" data-tab="working-hours">Giờ công</button>
+        </div>
+        
+        <!-- Tab Lịch công bố -->
+        <div id="dashboard" class="tab-pane active">
+            <h2>Lịch công bố</h2>
+            <div class="schedule-nav">
+                <button id="prev-week">Tuần trước</button>
+                <span id="current-week"></span>
+                <button id="next-week">Tuần sau</button>
+            </div>
+            <div class="schedule-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Thứ 2</th>
+                            <th>Thứ 3</th>
+                            <th>Thứ 4</th>
+                            <th>Thứ 5</th>
+                            <th>Thứ 6</th>
+                            <th>Thứ 7</th>
+                            <th>Chủ nhật</th>
+                        </tr>
+                        <tr id="week-dates">
+                            <!-- Ngày sẽ được điền bằng JS -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="schedule-row">
+                            <!-- Lịch sẽ được điền bằng JS -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Tab Đăng ký lịch -->
+        <div id="register" class="tab-pane">
+            <h2>Đăng ký lịch</h2>
+            <div class="schedule-nav">
+                <button id="prev-week-register">Tuần trước</button>
+                <span id="current-week-register"></span>
+                <button id="next-week-register">Tuần sau</button>
+            </div>
+            <div class="schedule-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Thứ 2</th>
+                            <th>Thứ 3</th>
+                            <th>Thứ 4</th>
+                            <th>Thứ 5</th>
+                            <th>Thứ 6</th>
+                            <th>Thứ 7</th>
+                            <th>Chủ nhật</th>
+                        </tr>
+                        <tr id="week-dates-register">
+                            <!-- Ngày sẽ được điền bằng JS -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="register-row">
+                            <!-- Lịch đăng ký sẽ được điền bằng JS -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button id="submit-register">Gửi đăng ký</button>
+            <div id="register-message" class="message"></div>
+        </div>
+        
+        <!-- Tab Khiếu nại -->
+        <div id="complaint" class="tab-pane">
+            <h2>Khiếu nại</h2>
+            <div class="form-group">
+                <label for="complaint-type">Loại khiếu nại:</label>
+                <select id="complaint-type">
+                    <option value="Bổ sung giờ công">Bổ sung giờ công</option>
+                    <option value="Pass ca">Pass ca</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="complaint-date">Ngày:</label>
+                <input type="date" id="complaint-date">
+            </div>
+            <div class="form-group">
+                <label for="complaint-shift">Ca:</label>
+                <select id="complaint-shift">
+                    <option value="CA1">CA 1</option>
+                    <option value="CA2">CA 2</option>
+                    <option value="CA3">CA 3</option>
+                    <option value="FULL">FULL</option>
+                </select>
+            </div>
+            <div class="form-group" id="receiver-group" style="display: none;">
+                <label for="complaint-receiver">Người nhận ca:</label>
+                <select id="complaint-receiver">
+                    <!-- Sẽ được điền bằng JS -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="complaint-content">Nội dung:</label>
+                <textarea id="complaint-content" rows="4"></textarea>
+            </div>
+            <button id="submit-complaint">Gửi khiếu nại</button>
+            <div id="complaint-message" class="message"></div>
+        </div>
+        
+        <!-- Tab Giờ công -->
+        <div id="working-hours" class="tab-pane">
+            <h2>Giờ công</h2>
+            <div class="schedule-nav">
+                <button id="prev-month">Tháng trước</button>
+                <span id="current-month"></span>
+                <button id="next-month">Tháng kế tiếp</button>
+            </div>
+            <div class="working-hours-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Họ và tên</th>
+                            <!-- Ngày sẽ được điền bằng JS -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="working-hours-row">
+                            <!-- Giờ công sẽ được điền bằng JS -->
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Tổng giờ:</td>
+                            <td id="total-hours" colspan="31"></td>
+                        </tr>
+                        <tr>
+                            <td>Tổng ca:</td>
+                            <td id="total-shifts" colspan="31"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div id="shift-modal" class="modal">
+        <div class="modal-content">
+            <h3>Chọn ca</h3>
+            <div class="shift-options">
+                <label><input type="checkbox" value="CA1"> CA 1</label>
+                <label><input type="checkbox" value="CA2"> CA 2</label>
+                <label><input type="checkbox" value="CA3"> CA 3</label>
+                <label><input type="checkbox" value="FULL"> FULL</label>
+            </div>
+            <div class="modal-buttons">
+                <button id="cancel-shift">Thoát</button>
+                <button id="confirm-shift">OK</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/nhan-vien.js"></script>
+</body>
+</html>
