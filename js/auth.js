@@ -11,26 +11,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Xử lý đăng nhập
-    const loginBtn = document.getElementById('login-btn');
-    if (loginBtn) {
-      loginBtn.addEventListener('click', function() {
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        
-        if (!email || !password) {
-          showNotification('Vui lòng nhập email và mật khẩu', 'error');
-          return;
-        }
-        
-        login(email, password);
-      });
-    }
-  } else {
-    // Các trang khác yêu cầu đăng nhập
-    if (!user) {
-      window.location.href = 'index.html';
+    // Xử lý đăng nhập
+const loginBtn = document.getElementById('login-btn');
+if (loginBtn) {
+  loginBtn.addEventListener('click', function() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    
+    if (!email || !password) {
+      if (typeof showNotification === 'function') {
+        showNotification('Vui lòng nhập email và mật khẩu', 'error');
+      } else {
+        alert('Vui lòng nhập email và mật khẩu');
+      }
       return;
     }
+    
+    // Kiểm tra hàm login có tồn tại không
+    if (typeof login === 'function') {
+      login(email, password);
+    } else {
+      console.error('Hàm login không được định nghĩa');
+      if (typeof showNotification === 'function') {
+        showNotification('Lỗi hệ thống, vui lòng tải lại trang', 'error');
+      } else {
+        alert('Lỗi hệ thống, vui lòng tải lại trang');
+      }
+    }
+  });
+}
     
     // Hiển thị thông tin user
     const userNameElement = document.getElementById('user-name');
@@ -74,4 +83,5 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
+
 });
