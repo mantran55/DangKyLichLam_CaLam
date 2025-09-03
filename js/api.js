@@ -2,12 +2,17 @@ const API_URL = "https://script.google.com/macros/s/AKfycbyAVwyVCFYYELZWteOgxSRn
 
 async function callApi(params) {
   try {
-    const url = new URL(API_URL);
+    const formData = new FormData();
     Object.keys(params).forEach(key => {
-      url.searchParams.append(key, params[key]);
+      formData.append(key, params[key]);
     });
     
-    const response = await fetch(url);
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      body: formData,
+      mode: 'cors'
+    });
+    
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     
     return await response.json();
@@ -208,4 +213,5 @@ window.updateWorkingHours = updateWorkingHours;
 window.publishSchedule = publishSchedule;
 window.getEmployees = getEmployees;
 window.showNotification = showNotification;
+
 
