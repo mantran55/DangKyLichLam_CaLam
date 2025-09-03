@@ -2,16 +2,24 @@ const API_URL = "https://script.google.com/macros/s/AKfycby2vIX9RFEhq7E-N7xYuGnm
 
 async function callApi(params) {
   try {
-    const formData = new FormData();
+    // Sử dụng URL proxy để tránh chuyển hướng
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+    const url = new URL(API_URL);
+    
+    // Thêm tham số vào URL
     Object.keys(params).forEach(key => {
-      formData.append(key, params[key]);
+      url.searchParams.append(key, params[key]);
     });
     
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      body: formData,
+    console.log("Sending request to:", url.toString());
+    
+    // Sử dụng proxy để tránh vấn đề CORS và chuyển hướng
+    const response = await fetch(proxyUrl + url.toString(), {
+      method: 'GET',
       mode: 'cors'
     });
+    
+    console.log("Response status:", response.status);
     
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     
@@ -272,6 +280,7 @@ window.updateWorkingHours = updateWorkingHours;
 window.publishSchedule = publishSchedule;
 window.getEmployees = getEmployees;
 window.showNotification = showNotification;
+
 
 
 
