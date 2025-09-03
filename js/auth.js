@@ -23,27 +23,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         try {
-          // Sử dụng POST request
-          const formData = new FormData();
-          formData.append('action', 'login');
-          formData.append('email', email);
-          formData.append('password', password);
+          console.log("Sending login request...");
           
-          const response = await fetch(API_URL, {
-            method: 'POST',
-            body: formData,
+          // Sử dụng GET request thay vì POST
+          const response = await fetch(`${API_URL}?action=login&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`, {
+            method: 'GET',
             mode: 'cors'
           });
+          
+          console.log("Response status:", response.status);
           
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           
           const result = await response.json();
+          console.log("Response:", result);
           
           if (result && result.status === "success") {
             localStorage.setItem("user", JSON.stringify(result.user));
-            window.location.href = result.user.role === 'Admin' ? 'admin.html' : 'nhan-vien.html';
+            showNotification('Đăng nhập thành công! Đang chuyển hướng...', 'success');
+            
+            setTimeout(() => {
+              window.location.href = result.user.role === 'Admin' ? "admin.html" : "nhan-vien.html";
+            }, 1500);
           } else {
             showNotification(result?.message || "Đăng nhập thất bại", 'error');
           }
