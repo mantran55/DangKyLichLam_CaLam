@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Kiểm tra đăng nhập
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
   const currentPage = window.location.pathname.split('/').pop();
   
   if (currentPage === 'index.html') {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Xử lý đăng nhập
     const loginBtn = document.getElementById('login-btn');
     if (loginBtn) {
-      loginBtn.addEventListener('click', function() {
+      loginBtn.addEventListener('click', async function() {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         
@@ -22,7 +22,26 @@ document.addEventListener('DOMContentLoaded', function() {
           return;
         }
         
-        login(email, password);
+        try {
+          // Gọi API trực tiếp
+          const response = await fetch(`${API_URL}?action=login&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          
+          const result = await response.json();
+          
+          if (result && result.status === "success") {
+            localStorage.setItem("user", JSON.stringify(result.user));
+            window.location.href = result.user.role === "Admin" ? "admin.html" : "nhan-vien.html";
+          } else {
+            showNotification(result?.message || "Đăng nhập thất bại", "error");
+          }
+        } catch (error) {
+          console.error('Lỗi đăng nhập:', error);
+          showNotification('Lỗi kết nối đến máy chủ: ' + error.message, 'error');
+        }
       });
     }
   } else {
