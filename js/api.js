@@ -23,6 +23,65 @@ async function callApi(params) {
   }
 }
 
+async function callApiJsonp(params) {
+  return new Promise((resolve, reject) => {
+    // Tạo URL với tham số
+    const url = new URL(API_URL);
+    Object.keys(params).forEach(key => {
+      url.searchParams.append(key, params[key]);
+    });
+    
+    // Tạo callback name
+    const callbackName = 'jsonpCallback_' + Math.round(100000 * Math.random());
+    
+    // Tạo script element
+    const script = document.createElement('script');
+    script.src = url.toString() + '&callback=' + callbackName;
+    
+    // Xử lý response
+    window[callbackName] = function(response) {
+      delete window[callbackName];
+      document.body.removeChild(script);
+      resolve(response);
+    };
+    
+    // Xử lý lỗi
+    script.onerror = function() {
+      delete window[callbackName];
+      document.body.removeChild(script);
+      reject(new Error('Network error'));
+    };
+    
+    // Thêm script vào DOM
+    document.body.appendChild(script);
+  });
+}
+
+// Cập nhật hàm login
+async function login(email, password) {
+  try {
+    console.log("Attempting login with:", email);
+    
+    const result = await callApiJsonp({
+      action: "login",
+      email: email,
+      password: password
+    });
+    
+    console.log("Login result:", result);
+    
+    if (result && result.status === "success") {
+      localStorage.setItem("user", JSON.stringify(result.user));
+      window.location.href = result.user.role === "Admin" ? "admin.html" : "nhan-vien.html";
+    } else {
+      showNotification(result?.message || "Đăng nhập thất bại", "error");
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    showNotification("Lỗi kết nối đến máy chủ: " + error.message, "error");
+  }
+}
+
 async function login(email, password) {
   const result = await callApi({
     action: "login",
@@ -213,6 +272,7 @@ window.updateWorkingHours = updateWorkingHours;
 window.publishSchedule = publishSchedule;
 window.getEmployees = getEmployees;
 window.showNotification = showNotification;
+
 
 
 
