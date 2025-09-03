@@ -1,5 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbzos76fUeKgvsst5pxB4aj3dYrIWBkyejZdO9cLeSqVm_rVzKRZ1Sdb5sr5WTy9nD5kxA/exec"; // Thay bằng URL của bạn
-
+const API_URL = "https://script.google.com/macros/s/AKfycbwqjbIwrt7odmqcE18zptgh1mI0uTqywMGhLMuv2rfHLvqypU7HYw6_9yAXOfgNtRmpDw/exec"; // Thay bằng URL của bạn
 
 async function callApi(params) {
   try {
@@ -196,7 +195,8 @@ function showNotification(message, type) {
     }, 5000);
   }
 }
-// // Định nghĩa hàm toàn cục
+
+// Định nghĩa hàm toàn cục
 window.login = login;
 window.getSchedule = getSchedule;
 window.registerSchedule = registerSchedule;
@@ -208,10 +208,3 @@ window.updateWorkingHours = updateWorkingHours;
 window.publishSchedule = publishSchedule;
 window.getEmployees = getEmployees;
 window.showNotification = showNotification;
-
-
-
-
-
-
-
