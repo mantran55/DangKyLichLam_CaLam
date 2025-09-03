@@ -219,6 +219,71 @@ button:hover {
     background-color: #6c757d;
 }
 
+/* Working Hours Table */
+.working-hours-table {
+    overflow-x: auto;
+}
+
+.working-hours-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.working-hours-table th,
+.working-hours-table td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+    min-width: 30px;
+}
+
+.working-hours-table th {
+    background-color: #f2f2f2;
+}
+
+/* Complaints Table */
+.complaints-list {
+    overflow-x: auto;
+}
+
+.complaints-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.complaints-list th,
+.complaints-list td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.complaints-list th {
+    background-color: #f2f2f2;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.approve-btn {
+    background-color: #28a745;
+}
+
+.reject-btn {
+    background-color: #dc3545;
+}
+
+.edit-btn {
+    background-color: #007bff;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .container {
