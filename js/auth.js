@@ -23,8 +23,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         try {
-          // Gọi API trực tiếp
-          const response = await fetch(`${API_URL}?action=login&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
+          // Sử dụng POST request
+          const formData = new FormData();
+          formData.append('action', 'login');
+          formData.append('email', email);
+          formData.append('password', password);
+          
+          const response = await fetch(API_URL, {
+            method: 'POST',
+            body: formData,
+            mode: 'cors'
+          });
           
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -34,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
           
           if (result && result.status === "success") {
             localStorage.setItem("user", JSON.stringify(result.user));
-            window.location.href = result.user.role === "Admin" ? "admin.html" : "nhan-vien.html";
+            window.location.href = result.user.role === "Admin" ? "admin.html" : "nhan-vien.html';
           } else {
             showNotification(result?.message || "Đăng nhập thất bại", "error");
           }
